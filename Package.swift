@@ -19,6 +19,7 @@ let package = Package(
         .package(url: "https://github.com/Lakr233/Splash", from: "0.17.0"),
         .package(url: "https://github.com/Lakr233/Litext", from: "0.4.1"),
         .package(url: "https://github.com/Lakr233/swift-cmark", from: "0.6.1"),
+        .package(url: "https://github.com/nicklockwood/LRUCache", from: "1.0.7"),
     ],
     targets: [
         .target(name: "MarkdownView", dependencies: [
@@ -26,6 +27,7 @@ let package = Package(
             "Splash",
             "MarkdownParser",
             "SwiftMath",
+            "LRUCache",
             .product(name: "DequeModule", package: "swift-collections"),
         ]),
         .target(name: "MarkdownParser", dependencies: [

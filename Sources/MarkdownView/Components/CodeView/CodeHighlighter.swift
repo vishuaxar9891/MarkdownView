@@ -62,7 +62,7 @@ final class CodeHighlighter {
         format: AttributedStringOutputFormat
     ) -> NSMutableAttributedString? {
         switch language.lowercased() {
-        case "plaintext":
+        case "", "plaintext":
             return NSMutableAttributedString(string: code)
         case "swift":
             let splash = SyntaxHighlighter(format: format, grammar: SwiftGrammar())

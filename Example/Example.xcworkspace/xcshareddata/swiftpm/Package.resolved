@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Lakr233/Litext",
       "state" : {
-        "revision" : "0a5abb015a53776d61291a96c4cf452f5b49e13e",
-        "version" : "0.4.2"
+        "revision" : "e4dc0ef6db05932105c3c7cb3cba9dad78e3ef52",
+        "version" : "0.4.3"
       }
     },
     {
@@ -16,6 +16,15 @@
       "state" : {
         "revision" : "e553d1b689d147817dc54ad5c28fcff71e860101",
         "version" : "1.2.8"
+      }
+    },
+    {
+      "identity" : "lrucache",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nicklockwood/LRUCache",
+      "state" : {
+        "revision" : "542f0449556327415409ededc9c43a4bd0a397dc",
+        "version" : "1.0.7"
       }
     },
     {

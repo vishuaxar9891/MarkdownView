@@ -158,14 +158,10 @@ Markdown 是一种轻量级标记语言，它允许人们使用易读易写的�
 
 ### 一些算数
 
-```
-  9.9
-+ 1.1
------
- 11.0
-```
+当 $a \ne 0$ 时，方程 $ax^2 + bx + c = 0$ 有两个解，分别为 $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$。
 
 ### 表格
+
 | 表头1 | 表头2 | 表头3 |
 | --- | --- | --- |
 | 单元格1 | 单元格2 | 单元格3 |
@@ -173,19 +169,10 @@ Markdown 是一种轻量级标记语言，它允许人们使用易读易写的�
 | 长单元格内容 | 短内容 | 又一个长单元格内容 |
 
 ### 链接和图片
+
 这是一个[链接](https://www.example.com)。你也可以添加一个图片：![图片描述](https://www.example.com/image.jpg)
 
 ### 代码块
-```python
-# 这是一个 Python 代码块
-print("Hello, World!")
-
-def add(a, b):
-    return a + b
-
-result = add(2, 3)
-print(result)
-```
 
 ```java
 // 这是一个 Java 代码块
@@ -202,9 +189,6 @@ public class HelloWorld {
 
 ### 分隔线
 ---
-
-### 数学公式
-当 $a \ne 0$ 时，方程 $ax^2 + bx + c = 0$ 有两个解，分别为 $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$。
 
 ### 脚注
 这是一个包含脚注的句子[^1]。

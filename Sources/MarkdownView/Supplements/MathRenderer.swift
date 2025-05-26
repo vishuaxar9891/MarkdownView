@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import LRUCache
 import SwiftMath
 import UIKit
 
@@ -14,6 +15,8 @@ enum MathRenderer {
         case text
         case math
     }
+
+    static let renderCache = LRUCache<String, UIImage>(countLimit: 256)
 
     struct ParsedContent {
         let type: ContentType
@@ -76,16 +79,19 @@ enum MathRenderer {
         fontSize: CGFloat = 16,
         textColor: UIColor = .black
     ) -> UIImage? {
+        if let cachedImage = renderCache.value(forKey: latex) {
+            return cachedImage
+        }
+
         let mathImage = MTMathImage(
             latex: latex,
             fontSize: fontSize,
             textColor: textColor,
             labelMode: .text
         )
-
         let (error, image) = mathImage.asImage()
-
-        if error != nil { return nil }
+        guard error == nil, let image else { return nil }
+        renderCache.setValue(image, forKey: latex)
 
         return image
     }
