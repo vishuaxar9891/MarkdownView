@@ -69,9 +69,12 @@ final class ContentController: UIViewController {
                 autoreleasepool {
                     let document = parser.feed(.init(char))
                     DispatchQueue.main.asyncAndWait {
+                        let date = Date()
                         self.markdownTextView.nodes = document
                         self.view.setNeedsLayout()
                         self.view.layoutIfNeeded()
+                        let time = Date().timeIntervalSince(date)
+                        self.measureLabel.text = String(format: "Time: %.4f ms", time * 1000)
                     }
                 }
             }
@@ -81,8 +84,6 @@ final class ContentController: UIViewController {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-
-        let date = Date()
 
         scrollView.frame = view.bounds
         let width = view.bounds.width - 32
@@ -108,9 +109,6 @@ final class ContentController: UIViewController {
             width: width,
             height: measureLabel.frame.maxY + 16
         )
-
-        let time = Date().timeIntervalSince(date)
-        measureLabel.text = String(format: "Time: %.4f ms", time * 1000)
 
         let offset = CGPoint(
             x: 0,
