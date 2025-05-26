@@ -119,7 +119,8 @@ fastlane/test_output
 .DS_Store
 .AppleDouble
 .LSOverride
-Icon[]
+Icon[
+]
 
 # Thumbnails
 ._*
@@ -142,3 +143,4 @@ Temporary Items
 
 ## User settings
 xcuserdata/
+Package.resolved
