@@ -39,6 +39,7 @@ public final class MarkdownTextView: UIView {
 
     private var drawingViewsDirtyMarks: [UIView: Bool] = [:]
     private var isDrawingViewsReady: Bool = false
+    private var drawingToken: UUID = .init()
 
     deinit {
         releaseDrawingViews()
@@ -100,9 +101,7 @@ public final class MarkdownTextView: UIView {
             }
         }
     }
-}
 
-extension MarkdownTextView {
     private func updateText() {
         // due to a bug in model gemini-flash, there might be a large of unknown empty whitespace inside the table
         // thus we hereby call the autoreleasepool to avoid large memory consumption
@@ -122,11 +121,14 @@ extension MarkdownTextView {
             let width = CTLineGetTypographicBounds(line, &ascent, &descent, nil)
             return .init(x: lineOrigin.x, y: lineOrigin.y - descent, width: width, height: ascent + descent)
         }
+        
+        let newDrawingToken = UUID()
+        drawingToken = newDrawingToken
 
         let renderText = TextBuilder(nodes: nodes, viewProvider: viewProvider)
             .withTheme(theme)
             .withBulletDrawing { [weak self] context, line, lineOrigin, depth in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 let radius: CGFloat = 3
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
@@ -147,7 +149,7 @@ extension MarkdownTextView {
                 }
             }
             .withNumberedDrawing { [weak self] context, line, lineOrigin, index in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 let string = NSAttributedString(
                     string: "\(index).",
                     attributes: [
@@ -162,7 +164,7 @@ extension MarkdownTextView {
                 CTFrameDraw(frame, context)
             }
             .withCheckboxDrawing { [weak self] context, line, lineOrigin, isChecked in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 let rect = lineBoundingBox(line, lineOrigin: lineOrigin).offsetBy(dx: -20, dy: 0)
                 let imageConfiguration = UIImage.SymbolConfiguration(scale: .small)
                 let image = if isChecked {
@@ -186,7 +188,7 @@ extension MarkdownTextView {
                 context.fill(targetRect)
             }
             .withThematicBreakDrawing { [weak self] context, line, lineOrigin in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
                 context.setLineWidth(1)
@@ -196,7 +198,7 @@ extension MarkdownTextView {
                 context.strokePath()
             }
             .withCodeDrawing { [weak self] _, line, lineOrigin in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
@@ -225,7 +227,7 @@ extension MarkdownTextView {
                 isDrawingViewsReady = true
             }
             .withTableDrawing { [weak self] _, line, lineOrigin in
-                guard let self else { return }
+                guard let self, self.drawingToken == newDrawingToken else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
