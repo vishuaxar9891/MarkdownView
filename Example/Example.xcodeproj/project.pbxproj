@@ -10,6 +10,7 @@
 		50219C662D3E2304006CB93C /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50219C652D3E2304006CB93C /* App.swift */; };
 		507C16722D2719F100B478D2 /* MarkdownView in Frameworks */ = {isa = PBXBuildFile; productRef = 507C16712D2719F100B478D2 /* MarkdownView */; };
 		5084C6742D281A41007310F0 /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = 5084C6732D281A41007310F0 /* LookinServer */; };
+		50A350BB2DE4B651008F094E /* MarkdownParser in Frameworks */ = {isa = PBXBuildFile; productRef = 50A350BA2DE4B651008F094E /* MarkdownParser */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,10 +19,11 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		505E99E72D26D8380014A6D3 /*  */ = {
+		505E99E72D26D8380014A6D3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50A350BB2DE4B651008F094E /* MarkdownParser in Frameworks */,
 				507C16722D2719F100B478D2 /* MarkdownView in Frameworks */,
 				5084C6742D281A41007310F0 /* LookinServer in Frameworks */,
 			);
@@ -82,6 +84,7 @@
 			packageProductDependencies = (
 				507C16712D2719F100B478D2 /* MarkdownView */,
 				5084C6732D281A41007310F0 /* LookinServer */,
+				50A350BA2DE4B651008F094E /* MarkdownParser */,
 			);
 			productName = Example;
 			productReference = 505E99EA2D26D8380014A6D3 /* Example.app */;
@@ -404,6 +407,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 5084C6722D281A38007310F0 /* XCRemoteSwiftPackageReference "LookinServer" */;
 			productName = LookinServer;
+		};
+		50A350BA2DE4B651008F094E /* MarkdownParser */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MarkdownParser;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

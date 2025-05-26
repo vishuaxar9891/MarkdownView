@@ -11,6 +11,7 @@ let package = Package(
     ],
     products: [
         .library(name: "MarkdownView", targets: ["MarkdownView"]),
+        .library(name: "MarkdownParser", targets: ["MarkdownParser"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-collections", from: "1.2.0"),
