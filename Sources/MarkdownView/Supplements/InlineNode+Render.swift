@@ -52,9 +52,7 @@ extension MarkdownInlineNode {
                     textColor: currentColor
                 ) {
                     let attachment: LTXAttachment = .init()
-                    let mathView = UIImageView()
-                    mathView.image = mathImage
-                    mathView.contentMode = .scaleAspectFit
+                    let mathView = MathView(text: mathContent, image: mathImage, theme: theme)
                     attachment.view = mathView
                     attachment.size = mathView.intrinsicContentSize
 
