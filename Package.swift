@@ -1,0 +1,35 @@
+// swift-tools-version: 5.9
+// The swift-tools-version declares the minimum version of Swift required to build this package.
+
+import PackageDescription
+
+let package = Package(
+    name: "MarkdownView",
+    platforms: [
+        .iOS(.v14),
+        .macCatalyst(.v14),
+    ],
+    products: [
+        .library(name: "MarkdownView", targets: ["MarkdownView"]),
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-collections", from: "1.2.0"),
+        .package(url: "https://github.com/mgriebling/SwiftMath", from: "1.7.1"),
+        .package(url: "https://github.com/Lakr233/Splash", from: "0.17.0"),
+        .package(url: "https://github.com/Lakr233/Litext", from: "0.4.1"),
+        .package(url: "https://github.com/Lakr233/swift-cmark", branch: "gfm"),
+    ],
+    targets: [
+        .target(name: "MarkdownView", dependencies: [
+            "Litext",
+            "Splash",
+            "MarkdownParser",
+            "SwiftMath",
+            .product(name: "DequeModule", package: "swift-collections"),
+        ]),
+        .target(name: "MarkdownParser", dependencies: [
+            .product(name: "cmark-gfm", package: "swift-cmark"),
+            .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
+        ]),
+    ]
+)
