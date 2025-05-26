@@ -139,7 +139,7 @@ extension CodeView {
         )
 
         scrollView.contentSize = CGSize(
-            width: textContentSize.width + CodeViewConfiguration.codePadding * 2,
+            width: textView.frame.width + CodeViewConfiguration.codePadding * 2,
             height: 0 // disable vertical scrolling to fix rarer bug
         )
     }
