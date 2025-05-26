@@ -3,8 +3,8 @@
 //  Copyright (c) 2025 ktiays. All rights reserved.
 //
 
-import UIKit
 import DequeModule
+import UIKit
 
 private class ObjectPool<T> {
     private let factory: () -> T

@@ -121,14 +121,14 @@ public final class MarkdownTextView: UIView {
             let width = CTLineGetTypographicBounds(line, &ascent, &descent, nil)
             return .init(x: lineOrigin.x, y: lineOrigin.y - descent, width: width, height: ascent + descent)
         }
-        
+
         let newDrawingToken = UUID()
         drawingToken = newDrawingToken
 
         let renderText = TextBuilder(nodes: nodes, viewProvider: viewProvider)
             .withTheme(theme)
             .withBulletDrawing { [weak self] context, line, lineOrigin, depth in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 let radius: CGFloat = 3
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
@@ -149,7 +149,7 @@ public final class MarkdownTextView: UIView {
                 }
             }
             .withNumberedDrawing { [weak self] context, line, lineOrigin, index in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 let string = NSAttributedString(
                     string: "\(index).",
                     attributes: [
@@ -164,7 +164,7 @@ public final class MarkdownTextView: UIView {
                 CTFrameDraw(frame, context)
             }
             .withCheckboxDrawing { [weak self] context, line, lineOrigin, isChecked in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 let rect = lineBoundingBox(line, lineOrigin: lineOrigin).offsetBy(dx: -20, dy: 0)
                 let imageConfiguration = UIImage.SymbolConfiguration(scale: .small)
                 let image = if isChecked {
@@ -188,7 +188,7 @@ public final class MarkdownTextView: UIView {
                 context.fill(targetRect)
             }
             .withThematicBreakDrawing { [weak self] context, line, lineOrigin in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
                 context.setLineWidth(1)
@@ -198,7 +198,7 @@ public final class MarkdownTextView: UIView {
                 context.strokePath()
             }
             .withCodeDrawing { [weak self] _, line, lineOrigin in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
@@ -227,7 +227,7 @@ public final class MarkdownTextView: UIView {
                 isDrawingViewsReady = true
             }
             .withTableDrawing { [weak self] _, line, lineOrigin in
-                guard let self, self.drawingToken == newDrawingToken else { return }
+                guard let self, drawingToken == newDrawingToken else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
