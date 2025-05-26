@@ -134,7 +134,7 @@ extension CodeView {
         textView.frame = CGRect(
             x: CodeViewConfiguration.codePadding,
             y: CodeViewConfiguration.codePadding,
-            width: textContentSize.width,
+            width: max(bounds.width - CodeViewConfiguration.codePadding * 2, textContentSize.width),
             height: textContentSize.height
         )
 
