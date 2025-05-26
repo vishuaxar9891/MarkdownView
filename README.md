@@ -8,10 +8,10 @@ A powerful pure UIKit framework for rendering Markdown documents with real-time 
 
 ## Features
 
-🚀 **Real-time Rendering**: Live Markdown parsing and rendering as you type
-🎨 **Syntax Highlighting**: Beautiful code syntax highlighting with Splash
-📊 **Math Rendering**: LaTeX math formula rendering with SwiftMath
-📱 **iOS Optimized**: Native UIKit implementation for optimal performance
+- 🚀 **Real-time Rendering**: Live Markdown parsing and rendering as you type
+- 🎨 **Syntax Highlighting**: Beautiful code syntax highlighting with Splash
+- 📊 **Math Rendering**: LaTeX math formula rendering with SwiftMath
+- 📱 **iOS Optimized**: Native UIKit implementation for optimal performance
 
 ## Installation
 
