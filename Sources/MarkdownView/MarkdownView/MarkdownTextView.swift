@@ -125,7 +125,8 @@ extension MarkdownTextView {
 
         let renderText = TextBuilder(nodes: nodes, viewProvider: viewProvider)
             .withTheme(theme)
-            .withBulletDrawing { [unowned self] context, line, lineOrigin, depth in
+            .withBulletDrawing { [weak self] context, line, lineOrigin, depth in
+                guard let self else { return }
                 let radius: CGFloat = 3
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
@@ -145,7 +146,8 @@ extension MarkdownTextView {
                     context.fill(rect)
                 }
             }
-            .withNumberedDrawing { [unowned self] context, line, lineOrigin, index in
+            .withNumberedDrawing { [weak self] context, line, lineOrigin, index in
+                guard let self else { return }
                 let string = NSAttributedString(
                     string: "\(index).",
                     attributes: [
@@ -159,7 +161,8 @@ extension MarkdownTextView {
                 let frame = CTFramesetterCreateFrame(framesetter, CFRangeMake(0, string.length), path, nil)
                 CTFrameDraw(frame, context)
             }
-            .withCheckboxDrawing { [unowned self] context, line, lineOrigin, isChecked in
+            .withCheckboxDrawing { [weak self] context, line, lineOrigin, isChecked in
+                guard let self else { return }
                 let rect = lineBoundingBox(line, lineOrigin: lineOrigin).offsetBy(dx: -20, dy: 0)
                 let imageConfiguration = UIImage.SymbolConfiguration(scale: .small)
                 let image = if isChecked {
@@ -182,7 +185,8 @@ extension MarkdownTextView {
                 context.setFillColor(theme.colors.body.withAlphaComponent(0.24).cgColor)
                 context.fill(targetRect)
             }
-            .withThematicBreakDrawing { [unowned self] context, line, lineOrigin in
+            .withThematicBreakDrawing { [weak self] context, line, lineOrigin in
+                guard let self else { return }
                 let boundingBox = lineBoundingBox(line, lineOrigin: lineOrigin)
 
                 context.setLineWidth(1)
@@ -191,7 +195,8 @@ extension MarkdownTextView {
                 context.addLine(to: .init(x: boundingBox.minX + bounds.width, y: boundingBox.midY))
                 context.strokePath()
             }
-            .withCodeDrawing { [unowned self] _, line, lineOrigin in
+            .withCodeDrawing { [weak self] _, line, lineOrigin in
+                guard let self else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
@@ -212,13 +217,15 @@ extension MarkdownTextView {
                     origin: .init(x: lineOrigin.x, y: bounds.height - lineBoundingBox.maxY),
                     size: .init(width: bounds.width, height: intrinsicContentSize.height)
                 )
-                codeView.previewAction = { [unowned self] in
+                codeView.previewAction = { [weak self] in
+                    guard let self else { return }
                     codePreviewHandler?($0, $1)
                 }
 
                 isDrawingViewsReady = true
             }
-            .withTableDrawing { [unowned self] _, line, lineOrigin in
+            .withTableDrawing { [weak self] _, line, lineOrigin in
+                guard let self else { return }
                 guard let firstRun = line.glyphRuns().first else {
                     assertionFailure()
                     return
@@ -252,7 +259,8 @@ extension MarkdownTextView {
         updateText()
         textView.backgroundColor = .clear
         textView.attributedText = attributedText ?? .init()
-        textView.tapHandler = { [unowned self] highlightRegion, touchLocation in
+        textView.tapHandler = { [weak self] highlightRegion, touchLocation in
+            guard let self else { return }
             guard let highlightRegion else {
                 return
             }

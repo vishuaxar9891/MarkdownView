@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
     name: "MarkdownView",
     platforms: [
-        .iOS(.v14),
-        .macCatalyst(.v14),
+        .iOS(.v13),
+        .macCatalyst(.v13),
     ],
     products: [
         .library(name: "MarkdownView", targets: ["MarkdownView"]),

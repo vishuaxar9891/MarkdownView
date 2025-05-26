@@ -32,8 +32,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Lakr233/swift-cmark",
       "state" : {
-        "branch" : "gfm",
-        "revision" : "65cccbe1098cddf9311061995b70eb439d5901f6"
+        "revision" : "65cccbe1098cddf9311061995b70eb439d5901f6",
+        "version" : "0.6.1"
       }
     },
     {
